@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:mysql://192.168.146.138:3306/ms_user?serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.146.142:3306/ms_user?serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
@@ -10,3 +10,40 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+  application:
+    name: yyx-ms-user
+  cloud:
+    consul:
+      discovery:
+        tags: jifang=nanjing
+        prefer-ip-address: true   #显示主机ip地址
+        #注册到consul上的实例名称
+        instance-id: ${spring.application.name}-${server.port}-${spring.cloud.client.ip-address}
+        #instance-id: ${spring.application.name}-${server.port}-${spring.cloud.client.hostname}
+
+        # prefer-agent-address: true
+#    inetutils:
+#      preferred-networks:
+#       # - 183.67.53.178
+#        - 183.67
+#        - 192.168    #指定显示的ip
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+---
+spring:
+  profiles: dev
+testProfile: dev
+---
+spring:
+  profiles: prod
+testProfile: prod

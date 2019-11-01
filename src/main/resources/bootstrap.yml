@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: yyx-ms-user
+  cloud:
+    consul:
+      host: 192.168.146.135
+#      host: localhost
+      port: 8500
+      config:
+            enabled: true #启动consulconfig ，默认true
+            #配置文件前缀文件名，默认config
+            prefix: config
+            #共享配置文件夹名，默认application
+            default-context: application
+            #应用名称与profile之间的分隔符  默认 ，
+            profile-separator: ','
+            #data key
+            data-key: data
+            #配置格式
+            format: yaml
+            watch:
+              enabled: true #是否启用监听配置变化
+              #watch的delay，默认1000ms
+              delay: 1000
+              #watch过程的等待时间 默认55s
+              wait-time: 55
+  profiles:
+    active: dev
